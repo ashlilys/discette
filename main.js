@@ -8,7 +8,7 @@ function preload() {
   bg = loadImage("main_bg.png");
   cdPlayer = loadImage("cd_player.png");
 
-  // order is BOTTOM to TOP
+  // order: bottom to top
   cds = [
     {
       stackImg: loadImage("cd_stack_1.png"),
@@ -55,30 +55,24 @@ function preload() {
 
 function setup() {
   createCanvas(1920, 1080);
-  imageMode(CENTER);
   textAlign(CENTER, CENTER);
 
   for (let cd of cds) {
-    cd.displayW = 340;
-    cd.displayH = 130;
-    cd.hitW = 280;
-    cd.hitH = 65;
+    cd.w = 340;
+    cd.h = 130;
   }
 }
 
 function draw() {
   hoveredCD = null;
 
-  // background
   imageMode(CORNER);
   image(bg, 0, 0, width, height);
 
-  imageMode(CENTER);
-
-  // cd player exactly where you asked
+  // CD player at top-left coordinate
   image(cdPlayer, 629, 115, 360, 360);
 
-  // check hover from TOP to BOTTOM
+  // check hover from top to bottom
   for (let i = cds.length - 1; i >= 0; i--) {
     if (isInsideCD(cds[i])) {
       hoveredCD = cds[i];
@@ -86,35 +80,35 @@ function draw() {
     }
   }
 
-  // draw from BOTTOM to TOP
+  // draw bottom to top
   for (let i = 0; i < cds.length; i++) {
     let cd = cds[i];
-    let popping = hoveredCD === cd;
-    let s = popping ? 1.08 : 1;
+    let s = hoveredCD === cd ? 1.08 : 1;
 
     push();
-    translate(cd.x, cd.y);
+    translate(cd.x + cd.w / 2, cd.y + cd.h / 2);
     scale(s);
-    image(cd.stackImg, 0, 0, cd.displayW, cd.displayH);
+    imageMode(CENTER);
+    image(cd.stackImg, 0, 0, cd.w, cd.h);
     pop();
   }
 
-  // hover preview
+  // hover preview with original cd_# color
   if (hoveredCD) {
+    imageMode(CORNER);
     image(hoveredCD.previewImg, 558, 253, 230, 230);
 
     fill(255);
     stroke(0);
     strokeWeight(5);
     textSize(34);
-    text(hoveredCD.label, 558, 90);
+    text(hoveredCD.label, 673, 220);
   }
 }
 
 function mousePressed() {
   if (hasClicked) return;
 
-  // click from TOP to BOTTOM
   for (let i = cds.length - 1; i >= 0; i--) {
     if (isInsideCD(cds[i])) {
       hasClicked = true;
@@ -126,9 +120,9 @@ function mousePressed() {
 
 function isInsideCD(cd) {
   return (
-    mouseX > cd.x - cd.hitW / 2 &&
-    mouseX < cd.x + cd.hitW / 2 &&
-    mouseY > cd.y - cd.hitH / 2 &&
-    mouseY < cd.y + cd.hitH / 2
+    mouseX > cd.x &&
+    mouseX < cd.x + cd.w &&
+    mouseY > cd.y &&
+    mouseY < cd.y + cd.h
   );
 }
