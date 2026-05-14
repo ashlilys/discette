@@ -2,18 +2,23 @@
 body {
   margin: 0;
   overflow: hidden;
-  opacity: 1;
+  opacity: 0;
+  animation: fadeInPage 0.8s ease forwards;
   cursor: url("cursor.png") 16 16, auto;
+}
+
+@keyframes fadeInPage {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* force cursor on all elements */
 * {
   cursor: url("cursor.png") 16 16, auto;
-}
-
-/* optional fade */
-body.fade-in {
-  opacity: 1;
 }
 
 /* index page layout */
