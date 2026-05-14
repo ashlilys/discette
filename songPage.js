@@ -19,7 +19,7 @@ function preload() {
   }
 
   else if (page.includes("natsuyuusora")) {
-    bg = loadImage("natsu_yuuzora.png"); // FIXED NAME
+    bg = loadImage("natsuyuuzora.png");
     flower = loadImage("flower_3.png");
     song = loadSound("natsuyuusora.mp3");
   }
