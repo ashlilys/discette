@@ -67,16 +67,27 @@ function preload() {
 
   flowerW = 400;
   flowerH = 400;
-
-  // load music notes
-  for (let i = 0; i < noteFileNames.length; i++) {
-    noteImgs.push(loadImage(noteFileNames[i]));
-  }
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   imageMode(CENTER);
+
+  // load music notes AFTER preload so they cannot freeze the page
+  noteImgs = new Array(noteFileNames.length);
+
+  for (let i = 0; i < noteFileNames.length; i++) {
+    loadImage(
+      noteFileNames[i],
+      function(img) {
+        noteImgs[i] = img;
+      },
+      function() {
+        console.log("Could not load " + noteFileNames[i]);
+        noteImgs[i] = null;
+      }
+    );
+  }
 
   createMusicNotes();
 
@@ -130,7 +141,7 @@ function createMusicNotes() {
 
   for (let i = 0; i < 22; i++) {
     notes.push({
-      imgIndex: floor(random(noteImgs.length)),
+      imgIndex: floor(random(noteFileNames.length)),
       x: random(width),
       y: random(height),
       size: random(65, 140),
@@ -150,6 +161,11 @@ function drawMusicNotes() {
 
   for (let note of notes) {
     let img = noteImgs[note.imgIndex];
+
+    // if image is not loaded yet, skip this note
+    if (!img || img.width < 1) {
+      continue;
+    }
 
     note.x += note.speedX;
     note.y += note.speedY;
@@ -180,15 +196,13 @@ function drawMusicNotes() {
       note.x = -120;
     }
 
-    if (img) {
-      push();
-      translate(note.x, note.y);
-      rotate(note.rotation);
-      tint(255, note.alpha);
-      image(img, 0, 0, note.size, note.size);
-      noTint();
-      pop();
-    }
+    push();
+    translate(note.x, note.y);
+    rotate(note.rotation);
+    tint(255, note.alpha);
+    image(img, 0, 0, note.size, note.size);
+    noTint();
+    pop();
   }
 }
 
