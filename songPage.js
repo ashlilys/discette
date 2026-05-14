@@ -19,8 +19,8 @@ function preload() {
     song = loadSound("deep_diving.mp3");
 
     // lower left
-    flowerX = 310;
-    flowerY = 560;
+    flowerX = 320;
+    flowerY = 550;
   }
 
   else if (page.includes("barbie_girl")) {
@@ -29,7 +29,7 @@ function preload() {
     song = loadSound("barbie_girl.mp3");
 
     // lower left
-    flowerX = 310;
+    flowerX = 340;
     flowerY = 560;
   }
 
@@ -40,7 +40,7 @@ function preload() {
 
     // slightly lower than center
     flowerX = 683;
-    flowerY = 500;
+    flowerY = 480;
   }
 
   else if (page.includes("guess")) {
@@ -49,7 +49,7 @@ function preload() {
     song = loadSound("guess.mp3");
 
     // lower right
-    flowerX = 1050;
+    flowerX = 1090;
     flowerY = 560;
   }
 
@@ -63,8 +63,8 @@ function preload() {
     flowerY = 560;
   }
 
-  flowerW = 450;
-  flowerH = 450;
+  flowerW = 490;
+  flowerH = 400;
 }
 
 function setup() {
