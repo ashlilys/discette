@@ -10,6 +10,13 @@ let flowerH;
 let designW = 1366;
 let designH = 768;
 
+let fadeAlpha = 255;
+
+// music note images
+let noteFileNames = ["note_1.png", "note_2.png", "note_3.png"];
+let noteImgs = [];
+let notes = [];
+
 function preload() {
   let page = window.location.pathname;
 
@@ -72,6 +79,13 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   imageMode(CENTER);
 
+  // load music notes outside preload so a wrong note filename does not freeze the whole page
+  for (let i = 0; i < noteFileNames.length; i++) {
+    noteImgs.push(loadImage(noteFileNames[i]));
+  }
+
+  createMusicNotes();
+
   if (song) {
     song.loop();
   }
@@ -80,29 +94,15 @@ function setup() {
 function draw() {
   drawBackground(bg);
 
+  // floating music notes behind flower
+  drawMusicNotes();
+
   // flower/player image only, kept square
   let flowerSize = Math.min(sw(flowerW), sh(flowerH));
   image(flower, sx(flowerX), sy(flowerY), flowerSize, flowerSize);
 
   // cute instruction label
-  let labelText = "click cd to stop song !";
-  let labelX = width / 2;
-  let labelY = sy(65);
-
-  textAlign(CENTER, CENTER);
-  textSize(sw(15));
-  textFont("monospace");
-
-  let labelW = textWidth(labelText) + sw(35);
-  let labelH = sh(34);
-
-  noStroke();
-  fill(255, 230, 238, 220);
-  rectMode(CENTER);
-  rect(labelX, labelY, labelW, labelH, sw(18));
-
-  fill(180, 70, 100);
-  text(labelText, labelX, labelY);
+  drawCuteLabel("click cd to stop song !", width / 2, sy(65));
 
   // fade-in animation
   if (fadeAlpha > 0) {
@@ -125,6 +125,82 @@ function mousePressed() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+}
+
+/* ---------- MUSIC NOTES ---------- */
+function createMusicNotes() {
+  for (let i = 0; i < 14; i++) {
+    notes.push({
+      imgIndex: floor(random(noteFileNames.length)),
+      x: random(width),
+      y: random(height),
+      size: random(25, 65),
+      speedX: random(-0.35, 0.35),
+      speedY: random(-0.6, -0.2),
+      alpha: random(60, 220),
+      fadeSpeed: random(1.2, 2.8),
+      fadeDirection: random([1, -1])
+    });
+  }
+}
+
+function drawMusicNotes() {
+  for (let note of notes) {
+    let img = noteImgs[note.imgIndex];
+
+    note.x += note.speedX;
+    note.y += note.speedY;
+
+    note.alpha += note.fadeSpeed * note.fadeDirection;
+
+    if (note.alpha >= 230) {
+      note.alpha = 230;
+      note.fadeDirection = -1;
+    }
+
+    if (note.alpha <= 30) {
+      note.alpha = 30;
+      note.fadeDirection = 1;
+    }
+
+    if (note.y < -100) {
+      note.y = height + 100;
+      note.x = random(width);
+    }
+
+    if (note.x < -100) {
+      note.x = width + 100;
+    }
+
+    if (note.x > width + 100) {
+      note.x = -100;
+    }
+
+    if (img && img.width > 1) {
+      tint(255, note.alpha);
+      image(img, note.x, note.y, note.size, note.size);
+      noTint();
+    }
+  }
+}
+
+/* ---------- CUTE LABEL ---------- */
+function drawCuteLabel(labelText, labelX, labelY) {
+  textAlign(CENTER, CENTER);
+  textSize(sw(15));
+  textFont("monospace");
+
+  let labelW = textWidth(labelText) + sw(35);
+  let labelH = sh(34);
+
+  noStroke();
+  fill(255, 230, 238, 220);
+  rectMode(CENTER);
+  rect(labelX, labelY, labelW, labelH, sw(18));
+
+  fill(180, 70, 100);
+  noStroke();
+  text(labelText, labelX, labelY);
 }
 
 /* ---------- BACKGROUND FILLS SCREEN ---------- */
