@@ -4,11 +4,16 @@ let cds = [];
 let hoveredCD = null;
 let hasClicked = false;
 
+let stackX;
+let stackStartY;
+let playerX;
+let playerY;
+
 function preload() {
   bg = loadImage("main_bg.png");
   cdPlayer = loadImage("cd_player.png");
 
-  // order is TOP to BOTTOM
+  // visual order: cd_5 is top, cd_1 is bottom
   cds = [
     {
       stackImg: loadImage("cd_stack_5.png"),
@@ -53,16 +58,15 @@ function setup() {
 function draw() {
   hoveredCD = null;
 
-  // background
   imageMode(CORNER);
   image(bg, 0, 0, width, height);
 
   imageMode(CENTER);
 
-  // draw cd player on main page
+  // CD player on the right
   image(cdPlayer, playerX, playerY, 360, 360);
 
-  // check hover first
+  // check hover from top to bottom
   for (let i = 0; i < cds.length; i++) {
     if (isInsideCD(cds[i])) {
       hoveredCD = cds[i];
@@ -70,7 +74,7 @@ function draw() {
     }
   }
 
-  // draw stack from bottom to top
+  // draw from bottom to top so cd_5 appears on top
   for (let i = cds.length - 1; i >= 0; i--) {
     let cd = cds[i];
     let popping = hoveredCD === cd;
@@ -83,7 +87,7 @@ function draw() {
     pop();
   }
 
-  // preview CD + text on hover
+  // preview CD + single text label
   if (hoveredCD) {
     image(hoveredCD.previewImg, playerX, playerY - 40, 230, 230);
 
@@ -98,6 +102,7 @@ function draw() {
 function mousePressed() {
   if (hasClicked) return;
 
+  // check from top to bottom
   for (let i = 0; i < cds.length; i++) {
     if (isInsideCD(cds[i])) {
       hasClicked = true;
@@ -117,22 +122,23 @@ function isInsideCD(cd) {
 }
 
 function positionObjects() {
-  stackX = width * 0.28;
-  stackStartY = height * 0.36;
+  stackX = width * 0.25;
+  stackStartY = height * 0.28;
 
   playerX = width * 0.68;
   playerY = height * 0.55;
 
+  let spacing = 75;
+
   for (let i = 0; i < cds.length; i++) {
     cds[i].x = stackX;
-    cds[i].y = stackStartY + i * 48;
+    cds[i].y = stackStartY + i * spacing;
 
-    cds[i].displayW = 330;
-    cds[i].displayH = 120;
+    cds[i].displayW = 340;
+    cds[i].displayH = 130;
 
-    // smaller hitbox so transparent PNG space doesn't mess up clicks
     cds[i].hitW = 280;
-    cds[i].hitH = 45;
+    cds[i].hitH = 65;
   }
 }
 
