@@ -63,8 +63,9 @@ function preload() {
     flowerY = 560;
   }
 
-  flowerW = 520;
-  flowerH = 250;
+  // keep these equal so image stays proportional
+  flowerW = 650;
+  flowerH = 650;
 }
 
 function setup() {
@@ -79,7 +80,7 @@ function setup() {
 function draw() {
   drawBackground(bg);
 
-  // flower/player image only
+  // flower/player image only, kept square
   let flowerSize = Math.min(sw(flowerW), sh(flowerH));
   image(flower, sx(flowerX), sy(flowerY), flowerSize, flowerSize);
 }
