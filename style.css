@@ -86,7 +86,7 @@ body.fade-in {
 
 .goback-img {
   position: absolute;
-  top: 0;
+  top: 300;
   left: 0;
   width: 100%;
   transition: opacity 0.3s ease;
