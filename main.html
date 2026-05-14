@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>discette - main</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+</head>
+
+<body>
+
+<script>
+let bg;
+let cds = [];
+let hasClicked = false;
+
+function preload() {
+  bg = loadImage("main_bg.png");
+
+  cds = [
+    { img: loadImage("cd_stack_1.png"), link: "deep_diving.html", label: "Deep Diving" },
+    { img: loadImage("cd_stack_2.png"), link: "barbie_girl.html", label: "Barbie Girl" },
+    { img: loadImage("cd_stack_3.png"), link: "natsuyuusora.html", label: "Natsu Yuuzora" },
+    { img: loadImage("cd_stack_4.png"), link: "guess.html", label: "Guess" },
+    { img: loadImage("cd_stack_5.png"), link: "enemy.html", label: "Enemy" }
+  ];
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  imageMode(CENTER);
+  positionCDs();
+}
+
+function draw() {
+  background(255, 220, 80);
+
+  imageMode(CORNER);
+  image(bg, 0, 0, width, height);
+
+  imageMode(CENTER);
+
+  for (let i = 0; i < cds.length; i++) {
+    let cd = cds[i];
+    let hovering = isInsideHitbox(cd);
+    let s = hovering ? 1.1 : 1;
+
+    push();
+    translate(cd.x, cd.y);
+    scale(s);
+    image(cd.img, 0, 0, cd.displayW, cd.displayH);
+    pop();
+
+    if (hovering) {
+      fill(255);
+      stroke(0);
+      strokeWeight(4);
+      textAlign(CENTER, CENTER);
+      textSize(32);
+      text(cd.label, width / 2, 90);
+    }
+  }
+}
+
+function mousePressed() {
+  if (hasClicked) return;
+
+  for (let i = cds.length - 1; i >= 0; i--) {
+    let cd = cds[i];
+
+    if (isInsideHitbox(cd)) {
+      hasClicked = true;
+      window.location.href = cd.link;
+      return;
+    }
+  }
+}
+
+function isInsideHitbox(cd) {
+  return (
+    mouseX > cd.x - cd.hitW / 2 &&
+    mouseX < cd.x + cd.hitW / 2 &&
+    mouseY > cd.y - cd.hitH / 2 &&
+    mouseY < cd.y + cd.hitH / 2
+  );
+}
+
+function positionCDs() {
+  for (let i = 0; i < cds.length; i++) {
+    cds[i].displayW = 360;
+    cds[i].displayH = 135;
+
+    cds[i].hitW = 160;
+    cds[i].hitH = 110;
+
+    cds[i].x = width / 2;
+    cds[i].y = height / 2 - 120 + i * 45;
+  }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  positionCDs();
+}
+</script>
+
+</body>
+</html>
