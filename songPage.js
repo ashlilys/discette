@@ -80,13 +80,15 @@ function draw() {
   drawBackground(bg);
 
   // flower/player image only
-  image(flower, sx(flowerX), sy(flowerY), sw(flowerW), sh(flowerH));
+  let flowerSize = Math.min(sw(flowerW), sh(flowerH));
+  image(flower, sx(flowerX), sy(flowerY), flowerSize, flowerSize);
 }
 
 function mousePressed() {
+  let flowerSize = Math.min(sw(flowerW), sh(flowerH));
   let d = dist(mouseX, mouseY, sx(flowerX), sy(flowerY));
 
-  if (d < sw(220)) {
+  if (d < flowerSize / 2) {
     window.location.href = "main.html";
   }
 }
