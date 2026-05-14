@@ -19,7 +19,7 @@ function preload() {
       previewImg: loadImage("cd_1.png"),
       link: "deep_diving.html",
       label: "Deep Diving",
-      x: 229,
+      x: 249,
       y: 487
     },
     {
@@ -27,7 +27,7 @@ function preload() {
       previewImg: loadImage("cd_2.png"),
       link: "barbie_girl.html",
       label: "Barbie Girl",
-      x: 229,
+      x: 249,
       y: 412
     },
     {
@@ -35,7 +35,7 @@ function preload() {
       previewImg: loadImage("cd_3.png"),
       link: "natsuyuusora.html",
       label: "Natsu Yuuzora",
-      x: 230,
+      x: 240,
       y: 338
     },
     {
@@ -43,7 +43,7 @@ function preload() {
       previewImg: loadImage("cd_4.png"),
       link: "guess.html",
       label: "Guess",
-      x: 229,
+      x: 249,
       y: 264
     },
     {
@@ -51,7 +51,7 @@ function preload() {
       previewImg: loadImage("cd_5.png"),
       link: "enemy.html",
       label: "Enemy",
-      x: 231,
+      x: 251,
       y: 190
     }
   ];
