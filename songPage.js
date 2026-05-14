@@ -25,7 +25,6 @@ function preload() {
     flower = loadImage("flower_1.png");
     song = loadSound("deep_diving.mp3");
 
-    // lower left
     flowerX = 320;
     flowerY = 570;
   }
@@ -35,7 +34,6 @@ function preload() {
     flower = loadImage("flower_2.png");
     song = loadSound("barbie_girl.mp3");
 
-    // lower left
     flowerX = 400;
     flowerY = 580;
   }
@@ -45,7 +43,6 @@ function preload() {
     flower = loadImage("flower_3.png");
     song = loadSound("natsuyuusora.mp3");
 
-    // slightly lower than center
     flowerX = 683;
     flowerY = 400;
   }
@@ -55,7 +52,6 @@ function preload() {
     flower = loadImage("flower_4.png");
     song = loadSound("guess.mp3");
 
-    // lower right
     flowerX = 1100;
     flowerY = 560;
   }
@@ -65,24 +61,22 @@ function preload() {
     flower = loadImage("flower_5.png");
     song = loadSound("enemy.mp3");
 
-    // lower right
     flowerX = 1100;
     flowerY = 500;
   }
 
-  // keep these equal so image stays proportional
   flowerW = 400;
   flowerH = 400;
+
+  // load music notes
+  for (let i = 0; i < noteFileNames.length; i++) {
+    noteImgs.push(loadImage(noteFileNames[i]));
+  }
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   imageMode(CENTER);
-
-  // load music notes outside preload so a wrong note filename does not freeze the whole page
-  for (let i = 0; i < noteFileNames.length; i++) {
-    noteImgs.push(loadImage(noteFileNames[i]));
-  }
 
   createMusicNotes();
 
@@ -125,61 +119,75 @@ function mousePressed() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+
+  notes = [];
+  createMusicNotes();
 }
 
 /* ---------- MUSIC NOTES ---------- */
 function createMusicNotes() {
-  for (let i = 0; i < 14; i++) {
+  notes = [];
+
+  for (let i = 0; i < 22; i++) {
     notes.push({
-      imgIndex: floor(random(noteFileNames.length)),
+      imgIndex: floor(random(noteImgs.length)),
       x: random(width),
       y: random(height),
-      size: random(25, 65),
-      speedX: random(-0.35, 0.35),
-      speedY: random(-0.6, -0.2),
-      alpha: random(60, 220),
-      fadeSpeed: random(1.2, 2.8),
-      fadeDirection: random([1, -1])
+      size: random(65, 140),
+      speedX: random(-0.6, 0.6),
+      speedY: random(-1.0, -0.35),
+      alpha: random(130, 255),
+      fadeSpeed: random(1.5, 3.5),
+      fadeDirection: random([1, -1]),
+      rotation: random(TWO_PI),
+      rotationSpeed: random(-0.01, 0.01)
     });
   }
 }
 
 function drawMusicNotes() {
+  imageMode(CENTER);
+
   for (let note of notes) {
     let img = noteImgs[note.imgIndex];
 
     note.x += note.speedX;
     note.y += note.speedY;
+    note.rotation += note.rotationSpeed;
 
     note.alpha += note.fadeSpeed * note.fadeDirection;
 
-    if (note.alpha >= 230) {
-      note.alpha = 230;
+    if (note.alpha >= 255) {
+      note.alpha = 255;
       note.fadeDirection = -1;
     }
 
-    if (note.alpha <= 30) {
-      note.alpha = 30;
+    if (note.alpha <= 90) {
+      note.alpha = 90;
       note.fadeDirection = 1;
     }
 
-    if (note.y < -100) {
-      note.y = height + 100;
+    if (note.y < -120) {
+      note.y = height + 120;
       note.x = random(width);
     }
 
-    if (note.x < -100) {
-      note.x = width + 100;
+    if (note.x < -120) {
+      note.x = width + 120;
     }
 
-    if (note.x > width + 100) {
-      note.x = -100;
+    if (note.x > width + 120) {
+      note.x = -120;
     }
 
-    if (img && img.width > 1) {
+    if (img) {
+      push();
+      translate(note.x, note.y);
+      rotate(note.rotation);
       tint(255, note.alpha);
-      image(img, note.x, note.y, note.size, note.size);
+      image(img, 0, 0, note.size, note.size);
       noTint();
+      pop();
     }
   }
 }
