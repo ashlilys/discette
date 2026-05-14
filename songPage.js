@@ -78,16 +78,17 @@ function drawBackground(img) {
   let drawW, drawH;
 
   if (imgRatio > canvasRatio) {
-    drawW = width;
-    drawH = width / imgRatio;
-  } else {
     drawH = height;
     drawW = height * imgRatio;
+  } else {
+    drawW = width;
+    drawH = width / imgRatio;
   }
 
   let x = (width - drawW) / 2;
   let y = (height - drawH) / 2;
 
-  background(0); // black bars instead of white
-  image(img, x + drawW / 2, y + drawH / 2, drawW, drawH);
+  imageMode(CORNER);
+  image(img, x, y, drawW, drawH);
+  imageMode(CENTER);
 }
