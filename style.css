@@ -6,7 +6,7 @@ body {
   cursor: url("cursor.png") 16 16, auto;
 }
 
-/* force cursor on ALL elements */
+/* force cursor on all elements */
 * {
   cursor: url("cursor.png") 16 16, auto;
 }
@@ -41,8 +41,7 @@ body.fade-in {
   width: 300px;
   z-index: 2;
   transition: transform 0.2s ease;
-
-  top: 50px; /* move down */
+  top: 50px;
 }
 
 .play-btn:hover {
@@ -67,5 +66,40 @@ body.fade-in {
 }
 
 .play-btn:hover .base {
+  opacity: 0;
+}
+
+/* go back button on main page */
+.go-back-btn {
+  position: fixed;
+  left: 25px;
+  top: 280px;
+  width: 170px;
+  height: auto;
+  z-index: 20;
+  transition: transform 0.2s ease;
+}
+
+.go-back-btn:hover {
+  transform: scale(1.05);
+}
+
+.goback-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: opacity 0.3s ease;
+}
+
+.goback-hover {
+  opacity: 0;
+}
+
+.go-back-btn:hover .goback-hover {
+  opacity: 1;
+}
+
+.go-back-btn:hover .goback-base {
   opacity: 0;
 }
