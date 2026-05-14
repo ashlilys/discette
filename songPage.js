@@ -85,7 +85,7 @@ function draw() {
   image(flower, sx(flowerX), sy(flowerY), flowerSize, flowerSize);
 
   // cute instruction label
-  let labelText = "click cd to stop song";
+  let labelText = "click cd to stop song !";
   let labelX = width / 2;
   let labelY = sy(65);
 
