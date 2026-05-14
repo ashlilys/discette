@@ -80,6 +80,7 @@ function setup() {
 function draw() {
   drawBackground(bg);
 
+  // flower/player image only, kept square
   let flowerSize = Math.min(sw(flowerW), sh(flowerH));
   image(flower, sx(flowerX), sy(flowerY), flowerSize, flowerSize);
 
@@ -89,7 +90,7 @@ function draw() {
   let labelY = sy(65);
 
   textAlign(CENTER, CENTER);
-  textSize(sw(18));
+  textSize(sw(15));
   textFont("monospace");
 
   let labelW = textWidth(labelText) + sw(35);
@@ -102,6 +103,15 @@ function draw() {
 
   fill(180, 70, 100);
   text(labelText, labelX, labelY);
+
+  // fade-in animation
+  if (fadeAlpha > 0) {
+    fill(0, fadeAlpha);
+    noStroke();
+    rectMode(CORNER);
+    rect(0, 0, width, height);
+    fadeAlpha -= 8;
+  }
 }
 
 function mousePressed() {
