@@ -91,8 +91,8 @@ body {
 
 .goback-img {
   position: absolute;
-  top: 300;
-  left: 100;
+  top: 0;
+  left: 0;
   width: 100%;
   transition: opacity 0.3s ease;
 }
@@ -107,4 +107,94 @@ body {
 
 .go-back-btn:hover .goback-base {
   opacity: 0;
+}
+
+/* info / credits button on main page */
+.info-btn {
+  position: fixed;
+  right: 80px;
+  top: 350px;
+  width: 170px;
+  height: auto;
+  z-index: 20;
+  transition: transform 0.2s ease;
+}
+
+.info-btn:hover {
+  transform: scale(1.05);
+}
+
+.info-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: opacity 0.3s ease;
+}
+
+.info-hover {
+  opacity: 0;
+}
+
+.info-btn:hover .info-hover {
+  opacity: 1;
+}
+
+.info-btn:hover .info-base {
+  opacity: 0;
+}
+
+/* credits / more page */
+.more-page {
+  margin: 0;
+  overflow: hidden;
+  cursor: url("cursor.png") 16 16, auto;
+}
+
+.credits-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 620px;
+  max-width: 80vw;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 35px;
+  padding: 45px;
+  text-align: center;
+  z-index: 5;
+  font-family: monospace;
+  color: rgb(150, 70, 100);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+}
+
+.credits-box h1 {
+  margin-top: 0;
+  font-size: 38px;
+  letter-spacing: 2px;
+}
+
+.credits-box h2 {
+  margin-bottom: 5px;
+  font-size: 20px;
+}
+
+.credits-box p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.credits-back {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 22px;
+  background: rgb(255, 230, 238);
+  color: rgb(180, 70, 100);
+  text-decoration: none;
+  border-radius: 20px;
+  transition: transform 0.2s ease;
+}
+
+.credits-back:hover {
+  transform: scale(1.05);
 }
