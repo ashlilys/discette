@@ -40,7 +40,7 @@ function preload() {
 
     // slightly lower than center
     flowerX = 683;
-    flowerY = 300;
+    flowerY = 400;
   }
 
   else if (page.includes("guess")) {
@@ -64,8 +64,8 @@ function preload() {
   }
 
   // keep these equal so image stays proportional
-  flowerW = 450;
-  flowerH = 450;
+  flowerW = 400;
+  flowerH = 400;
 }
 
 function setup() {
