@@ -64,8 +64,8 @@ function preload() {
   }
 
   // keep these equal so image stays proportional
-  flowerW = 650;
-  flowerH = 650;
+  flowerW = 450;
+  flowerH = 450;
 }
 
 function setup() {
