@@ -1,5 +1,4 @@
 let bg;
-let player;
 let flower;
 let song;
 
@@ -19,7 +18,7 @@ function preload() {
     flower = loadImage("flower_1.png");
     song = loadSound("deep_diving.mp3");
 
-    // flower_1 lower left
+    // lower left
     flowerX = 310;
     flowerY = 560;
   }
@@ -29,7 +28,7 @@ function preload() {
     flower = loadImage("flower_2.png");
     song = loadSound("barbie_girl.mp3");
 
-    // flower_2 lower left
+    // lower left
     flowerX = 310;
     flowerY = 560;
   }
@@ -39,7 +38,7 @@ function preload() {
     flower = loadImage("flower_3.png");
     song = loadSound("natsuyuusora.mp3");
 
-    // flower_3 slightly lower than center
+    // slightly lower than center
     flowerX = 683;
     flowerY = 500;
   }
@@ -49,7 +48,7 @@ function preload() {
     flower = loadImage("flower_4.png");
     song = loadSound("guess.mp3");
 
-    // flower_4 lower right
+    // lower right
     flowerX = 1050;
     flowerY = 560;
   }
@@ -59,12 +58,10 @@ function preload() {
     flower = loadImage("flower_5.png");
     song = loadSound("enemy.mp3");
 
-    // flower_5 lower right
+    // lower right
     flowerX = 1050;
     flowerY = 560;
   }
-
-  player = loadImage("cd_player.png");
 
   flowerW = 450;
   flowerH = 450;
@@ -82,17 +79,14 @@ function setup() {
 function draw() {
   drawBackground(bg);
 
-  // regular cd player in center
-  image(player, width / 2, height / 2, sw(360), sh(360));
-
-  // flower/player image
+  // flower/player image only
   image(flower, sx(flowerX), sy(flowerY), sw(flowerW), sh(flowerH));
 }
 
 function mousePressed() {
-  let d = dist(mouseX, mouseY, width / 2, height / 2);
+  let d = dist(mouseX, mouseY, sx(flowerX), sy(flowerY));
 
-  if (d < 180) {
+  if (d < sw(220)) {
     window.location.href = "main.html";
   }
 }
