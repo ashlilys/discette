@@ -74,7 +74,7 @@ function draw() {
   image(bg, 0, 0, width, height);
 
   // CD player position: based on your design coordinates
-  image(cdPlayer, sx(629), sy(115), sw(300), sh(300));
+  image(cdPlayer, sx(629), sy(115), sw(420), sh(420));
 
   // check hover from top to bottom
   for (let i = cds.length - 1; i >= 0; i--) {
