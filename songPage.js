@@ -19,7 +19,7 @@ function preload() {
   }
 
   else if (page.includes("natsuyuusora")) {
-    bg = loadImage("natsuyuuzora.png");
+    bg = loadImage("natsu_yuuzora.png"); // FIXED NAME
     flower = loadImage("flower_3.png");
     song = loadSound("natsuyuusora.mp3");
   }
@@ -40,23 +40,54 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1920, 1080);
-  song.loop();
+  createCanvas(windowWidth, windowHeight);
+  imageMode(CENTER);
+
+  if (song) {
+    song.loop();
+  }
 }
 
 function draw() {
-  background(bg);
+  drawBackground(bg);
 
-  imageMode(CENTER);
-  image(player, width / 2, height / 2);
+  // player
+  image(player, width / 2, height / 2, 360, 360);
 
-  image(flower, width / 2, height / 2);
+  // flower
+  image(flower, width / 2, height / 2 - 20, 180, 180);
 }
 
 function mousePressed() {
-  let d = dist(mouseX, mouseY, width/2, height/2);
+  let d = dist(mouseX, mouseY, width / 2, height / 2);
 
-  if (d < 200) {
+  if (d < 180) {
     window.location.href = "main.html";
   }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+/* ---------- BACKGROUND FIX ---------- */
+function drawBackground(img) {
+  let imgRatio = img.width / img.height;
+  let canvasRatio = width / height;
+
+  let drawW, drawH;
+
+  if (imgRatio > canvasRatio) {
+    drawW = width;
+    drawH = width / imgRatio;
+  } else {
+    drawH = height;
+    drawW = height * imgRatio;
+  }
+
+  let x = (width - drawW) / 2;
+  let y = (height - drawH) / 2;
+
+  background(0); // black bars instead of white
+  image(img, x + drawW / 2, y + drawH / 2, drawW, drawH);
 }
