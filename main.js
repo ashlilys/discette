@@ -73,16 +73,30 @@ function draw() {
   imageMode(CORNER);
   image(bg, 0, 0, width, height);
 
-  // CD player position: based on your design coordinates
-  image(cdPlayer, sx(720), sy(180), sw(450), sh(450));
+  // cute main page instruction label
+  let labelText = "choose a cd to play";
+  let labelX = sx(480);
+  let labelY = sy(65);
 
-  // check hover from top to bottom
-  for (let i = cds.length - 1; i >= 0; i--) {
-    if (isInsideCD(cds[i])) {
-      hoveredCD = cds[i];
-      break;
-    }
-  }
+  textAlign(CENTER, CENTER);
+  textSize(sw(18));
+  textFont("monospace");
+
+  let labelW = textWidth(labelText) + sw(40);
+  let labelH = sh(34);
+
+  noStroke();
+  fill(255, 230, 238, 220);
+  rectMode(CENTER);
+  rect(labelX, labelY, labelW, labelH, sw(18));
+
+  fill(180, 70, 100);
+  text(labelText, labelX, labelY);
+
+  imageMode(CENTER);
+
+  // rest of your code continues...
+}
 
   // draw from bottom to top
   for (let i = 0; i < cds.length; i++) {
