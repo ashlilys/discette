@@ -35,7 +35,7 @@ function preload() {
       previewImg: loadImage("cd_3.png"),
       link: "natsuyuusora.html",
       label: "Natsu Yuuzora",
-      x: 240,
+      x: 250,
       y: 338
     },
     {
