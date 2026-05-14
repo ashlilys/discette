@@ -77,8 +77,8 @@ body {
 /* go back button on main page */
 .go-back-btn {
   position: fixed;
-  left: 25px;
-  top: 280px;
+  left: 100px;
+  top: 500px;
   width: 170px;
   height: auto;
   z-index: 20;
