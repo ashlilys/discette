@@ -80,17 +80,28 @@ function setup() {
 function draw() {
   drawBackground(bg);
 
-  // flower/player image only, kept square
   let flowerSize = Math.min(sw(flowerW), sh(flowerH));
   image(flower, sx(flowerX), sy(flowerY), flowerSize, flowerSize);
 
-  // instruction text
-  fill(255);
-  stroke(0);
-  strokeWeight(4);
+  // cute instruction label
+  let labelText = "click cd to stop song";
+  let labelX = width / 2;
+  let labelY = sy(65);
+
   textAlign(CENTER, CENTER);
-  textSize(sw(28));
-  text("click the cd to stop the song", width / 2, sy(70));
+  textSize(sw(18));
+  textFont("monospace");
+
+  let labelW = textWidth(labelText) + sw(35);
+  let labelH = sh(34);
+
+  noStroke();
+  fill(255, 230, 238, 220);
+  rectMode(CENTER);
+  rect(labelX, labelY, labelW, labelH, sw(18));
+
+  fill(180, 70, 100);
+  text(labelText, labelX, labelY);
 }
 
 function mousePressed() {
