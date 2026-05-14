@@ -76,10 +76,10 @@ function draw() {
 
   // cd player
   imageMode(CORNER);
-  image(cdPlayer, sx(660), sy(150), sw(420), sh(420));
+  image(cdPlayer, sx(700), sy(180), sw(420), sh(420));
 
   // cute main page instruction label
-  drawCuteLabel("choose a cd to play", width / 2, sy(65));
+  drawCuteLabel("choose a cd to play ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧", width / 2, sy(65));
   
   // check hover from top to bottom
   for (let i = cds.length - 1; i >= 0; i--) {
