@@ -3,6 +3,14 @@ let player;
 let flower;
 let song;
 
+let flowerX;
+let flowerY;
+let flowerW;
+let flowerH;
+
+let designW = 1366;
+let designH = 768;
+
 function preload() {
   let page = window.location.pathname;
 
@@ -10,33 +18,56 @@ function preload() {
     bg = loadImage("deep_diving.png");
     flower = loadImage("flower_1.png");
     song = loadSound("deep_diving.mp3");
+
+    // flower_1 lower left
+    flowerX = 310;
+    flowerY = 560;
   }
 
   else if (page.includes("barbie_girl")) {
     bg = loadImage("barbie_girl.png");
     flower = loadImage("flower_2.png");
     song = loadSound("barbie_girl.mp3");
+
+    // flower_2 lower left
+    flowerX = 310;
+    flowerY = 560;
   }
 
   else if (page.includes("natsuyuusora")) {
     bg = loadImage("natsuyuusora.png");
     flower = loadImage("flower_3.png");
     song = loadSound("natsuyuusora.mp3");
+
+    // flower_3 slightly lower than center
+    flowerX = 683;
+    flowerY = 500;
   }
 
   else if (page.includes("guess")) {
     bg = loadImage("guess.png");
     flower = loadImage("flower_4.png");
     song = loadSound("guess.mp3");
+
+    // flower_4 lower right
+    flowerX = 1050;
+    flowerY = 560;
   }
 
   else if (page.includes("enemy")) {
     bg = loadImage("enemy.png");
     flower = loadImage("flower_5.png");
     song = loadSound("enemy.mp3");
+
+    // flower_5 lower right
+    flowerX = 1050;
+    flowerY = 560;
   }
 
   player = loadImage("cd_player.png");
+
+  flowerW = 450;
+  flowerH = 450;
 }
 
 function setup() {
@@ -51,11 +82,11 @@ function setup() {
 function draw() {
   drawBackground(bg);
 
-  // player
-  image(player, width / 2, height / 2, 360, 360);
+  // regular cd player in center
+  image(player, width / 2, height / 2, sw(360), sh(360));
 
-  // flower
-  image(flower, width / 2, height / 2 - 20, 180, 180);
+  // flower/player image
+  image(flower, sx(flowerX), sy(flowerY), sw(flowerW), sh(flowerH));
 }
 
 function mousePressed() {
@@ -70,7 +101,7 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
-/* ---------- BACKGROUND FIX ---------- */
+/* ---------- BACKGROUND FILLS SCREEN ---------- */
 function drawBackground(img) {
   let imgRatio = img.width / img.height;
   let canvasRatio = width / height;
@@ -91,4 +122,21 @@ function drawBackground(img) {
   imageMode(CORNER);
   image(img, x, y, drawW, drawH);
   imageMode(CENTER);
+}
+
+/* ---------- POSITION SCALE HELPERS ---------- */
+function sx(x) {
+  return x * (width / designW);
+}
+
+function sy(y) {
+  return y * (height / designH);
+}
+
+function sw(w) {
+  return w * (width / designW);
+}
+
+function sh(h) {
+  return h * (height / designH);
 }
