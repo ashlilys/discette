@@ -20,7 +20,7 @@ function preload() {
 
     // lower left
     flowerX = 320;
-    flowerY = 550;
+    flowerY = 570;
   }
 
   else if (page.includes("barbie_girl")) {
@@ -29,8 +29,8 @@ function preload() {
     song = loadSound("barbie_girl.mp3");
 
     // lower left
-    flowerX = 340;
-    flowerY = 560;
+    flowerX = 400;
+    flowerY = 580;
   }
 
   else if (page.includes("natsuyuusora")) {
@@ -40,7 +40,7 @@ function preload() {
 
     // slightly lower than center
     flowerX = 683;
-    flowerY = 480;
+    flowerY = 300;
   }
 
   else if (page.includes("guess")) {
@@ -49,7 +49,7 @@ function preload() {
     song = loadSound("guess.mp3");
 
     // lower right
-    flowerX = 1090;
+    flowerX = 1170;
     flowerY = 560;
   }
 
@@ -63,8 +63,8 @@ function preload() {
     flowerY = 560;
   }
 
-  flowerW = 490;
-  flowerH = 400;
+  flowerW = 520;
+  flowerH = 250;
 }
 
 function setup() {
