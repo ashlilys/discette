@@ -47,7 +47,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(1920, 1080);
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
   positionObjects();
@@ -56,13 +56,12 @@ function setup() {
 function draw() {
   hoveredCD = null;
 
-  // background fills entire canvas
   imageMode(CORNER);
   image(bg, 0, 0, width, height);
 
   imageMode(CENTER);
 
-  // cd player position
+  // cd player
   image(cdPlayer, playerX, playerY, 360, 360);
 
   // check hover from top to bottom
@@ -86,7 +85,7 @@ function draw() {
     pop();
   }
 
-  // hover preview cd_# position
+  // hover preview cd_#
   if (hoveredCD) {
     image(hoveredCD.previewImg, 558, 253, 230, 230);
 
@@ -101,7 +100,6 @@ function draw() {
 function mousePressed() {
   if (hasClicked) return;
 
-  // check from top to bottom
   for (let i = 0; i < cds.length; i++) {
     if (isInsideCD(cds[i])) {
       hasClicked = true;
@@ -121,11 +119,11 @@ function isInsideCD(cd) {
 }
 
 function positionObjects() {
-  // cd player
+  // cd player lowered
   playerX = 629;
-  playerY = 115;
+  playerY = 315;
 
-  // exact stack positions you gave
+  // exact stack positions
   let positions = [
     { x: 221, y: 190 }, // cd_stack_5 top
     { x: 219, y: 264 }, // cd_stack_4
@@ -146,7 +144,8 @@ function positionObjects() {
   }
 }
 
+// keep fixed 1920x1080 layout
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  resizeCanvas(1920, 1080);
   positionObjects();
 }
