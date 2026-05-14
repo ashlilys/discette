@@ -83,6 +83,14 @@ function draw() {
   // flower/player image only, kept square
   let flowerSize = Math.min(sw(flowerW), sh(flowerH));
   image(flower, sx(flowerX), sy(flowerY), flowerSize, flowerSize);
+
+  // instruction text
+  fill(255);
+  stroke(0);
+  strokeWeight(4);
+  textAlign(CENTER, CENTER);
+  textSize(sw(28));
+  text("click the cd to stop the song", width / 2, sy(70));
 }
 
 function mousePressed() {
