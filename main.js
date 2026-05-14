@@ -4,8 +4,6 @@ let cds = [];
 let hoveredCD = null;
 let hasClicked = false;
 
-let stackX;
-let stackStartY;
 let playerX;
 let playerY;
 
@@ -58,12 +56,13 @@ function setup() {
 function draw() {
   hoveredCD = null;
 
+  // background fills entire canvas
   imageMode(CORNER);
   image(bg, 0, 0, width, height);
 
   imageMode(CENTER);
 
-  // CD player on the right
+  // cd player position
   image(cdPlayer, playerX, playerY, 360, 360);
 
   // check hover from top to bottom
@@ -74,7 +73,7 @@ function draw() {
     }
   }
 
-  // draw from bottom to top so cd_5 appears on top
+  // draw from bottom to top so cd_5 appears visually on top
   for (let i = cds.length - 1; i >= 0; i--) {
     let cd = cds[i];
     let popping = hoveredCD === cd;
@@ -87,15 +86,15 @@ function draw() {
     pop();
   }
 
-  // preview CD + single text label
+  // hover preview cd_# position
   if (hoveredCD) {
-    image(hoveredCD.previewImg, playerX, playerY - 40, 230, 230);
+    image(hoveredCD.previewImg, 558, 253, 230, 230);
 
     fill(255);
     stroke(0);
     strokeWeight(5);
     textSize(34);
-    text(hoveredCD.label, playerX, playerY - 220);
+    text(hoveredCD.label, 558, 90);
   }
 }
 
@@ -122,17 +121,22 @@ function isInsideCD(cd) {
 }
 
 function positionObjects() {
-  stackX = width * 0.25;
-  stackStartY = height * 0.28;
+  // cd player
+  playerX = 629;
+  playerY = 115;
 
-  playerX = width * 0.68;
-  playerY = height * 0.55;
-
-  let spacing = 75;
+  // exact stack positions you gave
+  let positions = [
+    { x: 221, y: 190 }, // cd_stack_5 top
+    { x: 219, y: 264 }, // cd_stack_4
+    { x: 220, y: 338 }, // cd_stack_3
+    { x: 219, y: 412 }, // cd_stack_2
+    { x: 219, y: 487 }  // cd_stack_1 bottom
+  ];
 
   for (let i = 0; i < cds.length; i++) {
-    cds[i].x = stackX;
-    cds[i].y = stackStartY + i * spacing;
+    cds[i].x = positions[i].x;
+    cds[i].y = positions[i].y;
 
     cds[i].displayW = 340;
     cds[i].displayH = 130;
