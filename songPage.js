@@ -49,7 +49,7 @@ function preload() {
     song = loadSound("guess.mp3");
 
     // lower right
-    flowerX = 1170;
+    flowerX = 1100;
     flowerY = 560;
   }
 
@@ -59,8 +59,8 @@ function preload() {
     song = loadSound("enemy.mp3");
 
     // lower right
-    flowerX = 1050;
-    flowerY = 560;
+    flowerX = 1100;
+    flowerY = 500;
   }
 
   // keep these equal so image stays proportional
