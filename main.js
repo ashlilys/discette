@@ -70,35 +70,26 @@ function setup() {
 function draw() {
   hoveredCD = null;
 
+  // background
   imageMode(CORNER);
   image(bg, 0, 0, width, height);
 
+  // cd player
+  imageMode(CORNER);
+  image(cdPlayer, sx(629), sy(115), sw(420), sh(420));
+
   // cute main page instruction label
-  let labelText = "choose a cd to play";
-  let labelX = sx(480);
-  let labelY = sy(65);
+  drawCuteLabel("choose a cd to play", sx(480), sy(65));
 
-  textAlign(CENTER, CENTER);
-  textSize(sw(18));
-  textFont("monospace");
+  // check hover from top to bottom
+  for (let i = cds.length - 1; i >= 0; i--) {
+    if (isInsideCD(cds[i])) {
+      hoveredCD = cds[i];
+      break;
+    }
+  }
 
-  let labelW = textWidth(labelText) + sw(40);
-  let labelH = sh(34);
-
-  noStroke();
-  fill(255, 230, 238, 220);
-  rectMode(CENTER);
-  rect(labelX, labelY, labelW, labelH, sw(18));
-
-  fill(180, 70, 100);
-  text(labelText, labelX, labelY);
-
-  imageMode(CENTER);
-
-  // rest of your code continues...
-}
-
-  // draw from bottom to top
+  // draw CDs from bottom to top
   for (let i = 0; i < cds.length; i++) {
     let cd = cds[i];
     let popping = hoveredCD === cd;
@@ -120,14 +111,12 @@ function draw() {
   // hover preview cd_#
   if (hoveredCD) {
     imageMode(CORNER);
+    image(hoveredCD.previewImg, sx(558), sy(253), sw(220), sw(220));
 
-    // preview CD position
-    image(hoveredCD.previewImg, sx(558), sy(253), sw(220), sh(220));
-
-    // one text label only
     fill(255);
     stroke(0);
     strokeWeight(5);
+    textAlign(CENTER, CENTER);
     textSize(sw(30));
     text(hoveredCD.label, sx(668), sy(220));
   }
@@ -136,6 +125,7 @@ function draw() {
 function mousePressed() {
   if (hasClicked) return;
 
+  // check clicks from top to bottom
   for (let i = cds.length - 1; i >= 0; i--) {
     if (isInsideCD(cds[i])) {
       hasClicked = true;
@@ -152,6 +142,24 @@ function isInsideCD(cd) {
     mouseY > sy(cd.y) &&
     mouseY < sy(cd.y) + sh(cd.h)
   );
+}
+
+function drawCuteLabel(labelText, labelX, labelY) {
+  textAlign(CENTER, CENTER);
+  textSize(sw(18));
+  textFont("monospace");
+
+  let labelW = textWidth(labelText) + sw(40);
+  let labelH = sh(34);
+
+  noStroke();
+  fill(255, 230, 238, 220);
+  rectMode(CENTER);
+  rect(labelX, labelY, labelW, labelH, sw(18));
+
+  fill(180, 70, 100);
+  noStroke();
+  text(labelText, labelX, labelY);
 }
 
 function windowResized() {
